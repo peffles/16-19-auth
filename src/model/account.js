@@ -35,6 +35,15 @@ const accountSchema = mongoose.Schema({
   },
 });
 
+function pVerifyPassword(password) {
+  return bcrypt.compare(password, this.passwordHash)
+    .then((result) => {
+      if (!result) {
+        throw new HttpError(400, 'AUTH - invalid request');
+      }
+      return this; // returns entire account
+    });
+}
 function pCreateLoginToken() {
   this.tokenSeed = crypto.randomBytes(TOKEN_SEED_LENGTH).toString('hex');
   return this.save()
@@ -45,10 +54,10 @@ function pCreateLoginToken() {
 }
 
 accountSchema.methods.pCreateLoginToken = pCreateLoginToken;
+accountSchema.methods.pVerifyPassword = pVerifyPassword;
 
 const Account = mongoose.model('account', accountSchema);
 
-// Hash variables: Salt, hashing algorithm, password, rounds 
 
 Account.create = (username, email, password) => {
   return bcrypt.hash(password, HASH_ROUNDS)

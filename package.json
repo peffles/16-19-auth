@@ -1,10 +1,10 @@
 {
   "name": "16-19-auth",
   "version": "1.0.0",
-  "description": "![cf](https://i.imgur.com/7v5ASc8.png) Lab 16: Basic Authentication ======",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "eslint . && jest --coverage",
+    "test": "eslint . && jest --coverage --forceExit --runInBand",
     "dbon": "mkdir -p ./db && mongod --dbpath ./db",
     "dboff": "killall mongod"
   },
