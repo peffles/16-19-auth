@@ -6,20 +6,22 @@ import logger from './logger';
 import authRoutes from '../route/auth-router';
 import loggerMiddleware from './logger-middleware';
 import errorMiddleware from './error-middleware';
+import profileRoutes from '../route/profile-route';
 
 const app = express();
 let server = null;
 
-app.use(loggerMiddleware);
+app.use(loggerMiddleware); // logger middleware at the app-level
 
 app.use(authRoutes);
+app.use(profileRoutes);
 
 app.all('*', (request, response) => {
-  logger.log(logger.INFO, 'Returning a 404 status code from the catch/all default route');
+  logger.log(logger.INFO, 'Returning a 404 from the catch/all default route');
   return response.sendStatus(404);
 });
 
-app.use(errorMiddleware);
+app.use(errorMiddleware); // error catching middleware...this is 'next'
 
 const startServer = () => {
   return mongoose.connect(process.env.MONGODB_URI)

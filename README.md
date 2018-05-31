@@ -1,20 +1,17 @@
+# Lab 17 - Bearer Authentication
 **Author**: Wyatt Pefley
-**Version**: 1.0.0
+**Version**: 1.1.0
 
-# Overview
-This is an application which performs CRUD operations via the Express framework to create, read, update, and delete data from a MongoDB consisting of accounts which have usernames, E-mails, passwords and that generate tokens for a successful login/signup.
+## Overview
+This lab project involved using basic and bearer authentication to create an account, login, and make GET and POST requests to create or find a profile. We added a second Schema called profile.
 
-# Architecture
-the point of entry for this app is index.js, and a lor of our code is modularized in the code base. Our testing is done in the __test__ folder, and the lib folder containing all of the helper modules.
+## Testing
+To start the server for testing, enter ```npm run dbon``` in your terminal. Then to start the test, enter: ```npm run test```. To turn the server off, enter: ```npm run dboff```.
 
-# Paths
+#### Account Model
+A successful status code of 200 is sent as the response if an account and token are created with the data sent in the POST request. If there is an error, a 400 status code is sent.
 
-POST ROUTE: Adds new account to the MongoDB.
-- POST routes result in a 200 status code.
-- POST routes with missing fields result in a 400 status code.
-- POST routes containing an already existing unique value will result in a 409 status code.
+There is also a test for logging in with a username and password using basic auth. If successful, a 200 status code is sent.
 
-# Change Log
-
-05-07-2018 7:15pm - POST route established, POST testing complete.
-05-07-2018 7:45pm - Tests passing.
+#### Profile Model
+The Profile model has a required reference to the Account model, meaning an Account must be created first. A successfully created profile will send a 200 status code. If the request data is incomplete, a status code of 400 will be sent. And using bearer auth, if a token is not sent, it will send a 401 error code. For a GET request completing successfully, a 200 status code is sent in response.
