@@ -16,7 +16,7 @@ describe('Auth Router', () => {
       return superagent.post(`${apiUrl}/signup`)
         .send({
           username: 'peffles',
-          email: 'wyatt@wyattiscool.com',
+          email: 'wyatt@wyattiscooler.com',
           password: 'qwerty123',
         })
         .then((response) => {
@@ -32,7 +32,7 @@ describe('Auth Router', () => {
           expect(response.status).toEqual(400);
         });
     });
-    test('should return 409 status code due to duplicate name', () => { // eslint-disable-line
+    test('should return 409 status code due to dupe name', () => { // eslint-disable-line
       return pCreateAccountMock()
         .then((mock) => {
           const mockAccount = {
@@ -51,14 +51,13 @@ describe('Auth Router', () => {
   });
 
   describe('GET /login', () => {
-    test('GET /login should return a 200 status code and TOKEN', () => {
+    test('GET login should return a 200 status code and TOKEN', () => {
       return pCreateAccountMock()
         .then((mock) => {
           return superagent.get(`${apiUrl}/login`)
             .auth(mock.request.username, mock.request.password);
         })
         .then((response) => {
-        // when i login i get a 200 code and a TOKEN
           expect(response.status).toEqual(200);
           expect(response.body.token).toBeTruthy();
         });
