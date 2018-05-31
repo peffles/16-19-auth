@@ -58,7 +58,6 @@ describe('Auth Router', () => {
             .auth(mock.request.username, mock.request.password);
         })
         .then((response) => {
-        // when i login i get a 200 code and a TOKEN
           expect(response.status).toEqual(200);
           expect(response.body.token).toBeTruthy();
         });
